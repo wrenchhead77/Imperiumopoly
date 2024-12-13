@@ -1,0 +1,71 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 24.08.2015 13:35:37
+
+newmtl Material__26
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\23.08.2015_20.08.34\Textures\Tex_0125.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\23.08.2015_20.08.34\Textures\Tex_0125.dds
+
+newmtl Tex_0000_4_dds
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\23.08.2015_20.08.34\Frames\Frame0000\Tex_0000_4.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\23.08.2015_20.08.34\Frames\Frame0000\Tex_0000_4.dds
+
+newmtl Material__25
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\23.08.2015_20.08.34\Textures\Tex_0153.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\23.08.2015_20.08.34\Textures\Tex_0153.dds
+
+newmtl Material__27
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\23.08.2015_20.08.34\Textures\Tex_0183.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\23.08.2015_20.08.34\Textures\Tex_0183.dds
+	map_d D:\Games\Warhammer 40.000 - Space Marine\_Ripper\23.08.2015_20.08.34\Textures\Tex_0183.dds
+
+newmtl 01___Default
+	Ns 9.999999
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588235 0.588235 0.588235
+	Kd 0.588235 0.588235 0.588235
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
