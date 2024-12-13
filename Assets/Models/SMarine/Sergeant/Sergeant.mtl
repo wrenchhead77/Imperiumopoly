@@ -1,0 +1,269 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 23.08.2015 15:36:36
+
+newmtl Material__86
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0173.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0173.dds
+
+newmtl Material__54
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0163.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0163.dds
+
+newmtl Material__105
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0175.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0175.dds
+
+newmtl Material__66
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0182.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0182.dds
+
+newmtl Material__60
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0184.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0184.dds
+
+newmtl Material__58
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0199.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0199.dds
+
+newmtl Material__94
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0205.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0205.dds
+
+newmtl Material__88
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0209.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0209.dds
+
+newmtl Material__74
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0171.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0171.dds
+
+newmtl Material__53
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0129.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0129.dds
+	map_d D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0129.dds
+
+newmtl Material__56
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0163.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0163.dds
+
+newmtl Material__57
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0163.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0163.dds
+
+newmtl Material__55
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0163.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0163.dds
+
+newmtl Material__49
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0149.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0149.dds
+
+newmtl Material__50
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0149.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0149.dds
+
+newmtl Material__48
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0149.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0149.dds
+
+newmtl Material__52
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0159.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0159.dds
+
+newmtl Material__108
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka C:\Users\vados\Desktop\3D models\Warhammer 40.000 - Space Marine\Characters\Sergeant (Space Marine)\Tex_0163.dds
+	map_Kd C:\Users\vados\Desktop\3D models\Warhammer 40.000 - Space Marine\Characters\Sergeant (Space Marine)\Tex_0163.dds
+
+newmtl Material__51
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0149.dds
+	map_Kd D:\Games\Warhammer 40.000 - Space Marine\_Ripper\22.08.2015_23.33.52\Textures\Tex_0149.dds
