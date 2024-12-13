@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: a8a5ed81cdf62a4468683ad5cb3bb4be
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - so_EnvironData: {fileID: 11400000, guid: dddd5dae782fe104bae1a90bbb39c29e, type: 2}
+  - grp_thumbnailParent: {instanceID: 0}
+  - wThumbnail: {instanceID: 0}
+  - wLargeImage: {instanceID: 0}
+  - lastSelectedThumbnail: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

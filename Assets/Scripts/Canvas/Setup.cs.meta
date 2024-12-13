@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 300cc226234fe5745bde1d899ad1ab69
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - setupData: {instanceID: 0}
+  - grp_PlayerButtons: {instanceID: 0}
+  - playerPrefab: {instanceID: 0}
+  - buttonPlay: {instanceID: 0}
+  - difficultyDropdown: {instanceID: 0}
+  - sleightDropdown: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
