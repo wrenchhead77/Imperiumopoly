@@ -5,7 +5,7 @@ public class FrontEnd : MonoBehaviour
     public void OnPlayNowClicked()
     {
         Debug.Log("<color=yellow>Play Now Clicked</color>");
-        CanvasManager.Instance.showCanvasSetup();
+        CanvasManager.Instance.showCanvasLobby();
     }
     public void OnTeacherModeClicked()
     {
