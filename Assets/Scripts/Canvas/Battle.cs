@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEditor.Experimental.GraphView;
 
 public class CanvasBattle : MonoBehaviour
 {
@@ -10,15 +11,15 @@ public class CanvasBattle : MonoBehaviour
     [SerializeField] private Button attackerRollButton; // Button for attacker to roll
     [SerializeField] private Button defenderRollButton; // Button for defender to roll
 
-    private Player attacker;
-    private Player defender;
+    private iPlayer attacker;
+    private iPlayer defender;
     private int dockingFee;
     private int[] attackerRolls = new int[3];
     private int[] defenderRolls = new int[3];
     private bool attackerRolled = false;
     private bool defenderRolled = false;
 
-    public void InitBattle(Player _attacker, Player _defender, int _dockingFee)
+    public void InitBattle(iPlayer _attacker, iPlayer _defender, int _dockingFee)
     {
         attacker = _attacker;
         defender = _defender;
@@ -32,9 +33,9 @@ public class CanvasBattle : MonoBehaviour
         defenderRollButton.onClick.AddListener(() => RollForPlayer(defender, false));
     }
 
-    private void RollForPlayer(Player player, bool isAttacker)
+    private void RollForPlayer(iPlayer player, bool isAttacker)
     {
-        string rollMessage = "";
+        string rollMessage = $"{player.playerName} rolls:\n";
 
         for (int i = 0; i < 3; i++)
         {
@@ -58,12 +59,14 @@ public class CanvasBattle : MonoBehaviour
         if (isAttacker)
         {
             _attackerResults.text = rollMessage;
+            _attackerResults.color = attacker.playerColor; // Set color to the attacker's player color
             attackerRolled = true;
             attackerRollButton.interactable = false;
         }
         else
         {
             _defenderResults.text = rollMessage;
+            _defenderResults.color = defender.playerColor; // Set color to the defender's player color
             defenderRolled = true;
             defenderRollButton.interactable = false;
         }
@@ -73,6 +76,7 @@ public class CanvasBattle : MonoBehaviour
             DetermineBattleResult();
         }
     }
+
 
     private void DetermineBattleResult()
     {
@@ -103,7 +107,8 @@ public class CanvasBattle : MonoBehaviour
         }
         else
         {
-            _message.text += "\nThe battle ends in a draw! No docking fees exchanged.";
+            _message.text += "\nThe battle ends in a draw! Normal docking fees exchanged.";
+            BankManager.Instance.TransferFunds(attacker, defender, dockingFee);
         }
 
         attackerRollButton.interactable = false;

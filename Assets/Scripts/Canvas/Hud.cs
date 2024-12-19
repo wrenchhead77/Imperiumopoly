@@ -17,7 +17,7 @@ public class Hud : MonoBehaviour
     public GameObject buttonRollDice;
     public GameObject buttonEndTurn;
     public bool isHudTemporarilyHidden = false;
-    public Player player;
+    public iPlayer player;
 
     PlayerManager pm = PlayerManager.Instance;
     DiceManager dm = DiceManager.Instance;
@@ -88,79 +88,89 @@ public class Hud : MonoBehaviour
         pm.AdvancePlayer();
 
     }
-    public void HandleSpot(soSpot so_Spot, bool doubleRent = false)
+    public void HandleSpot(iPlayer player, soSpot _soSpot)
     {
-        Player curPlayer = pm.players[pm.curPlayer];
-        Player owner = pm.WhoOwnsProperty(so_Spot);
-        switch (so_Spot.spotType)
+        iPlayer curPlayer = pm.players[pm.curPlayer];
+        iPlayer owner = pm.WhoOwnsProperty(_soSpot);
+
+        switch (_soSpot.spotType)
         {
             case eSpotType.property:
+                 if (owner != curPlayer)
+                {
+                    if (owner == null)
+                    {
+                        cm.showCanvasPurchase(_soSpot);
+                    }
+                    else
+                    {
+                        int rent = bm.CalculateRent(curPlayer, _soSpot);
+                        Debug.Log($"Pay rent to {owner.playerName}, Rent: {rent}");
+                        cm.showCanvasRent(_soSpot);
+                    }
+                }
+                else
+                {
+                    Debug.Log($"Player {curPlayer.playerName} owns {_soSpot.spotName}. No rent popup needed.");
+                }
+                break;
+            case eSpotType.tax:
+                Debug.Log($"Pay tax for landing on {_soSpot.spotName}");
+                cm.showCanvasTax(_soSpot);
+                break;
+
+            case eSpotType.utility:
                 if (owner != curPlayer)
                 {
                     if (owner == null)
                     {
-                        cm.showCanvasPurchase(so_Spot);
+                        cm.showCanvasPurchase(_soSpot);
                     }
                     else
                     {
-                        int Rent = bm.CalculateRent(so_Spot);
-                        Debug.Log($"Pay rent to {owner.playerName}, Rent: {Rent}");
-                        cm.showCanvasRent(so_Spot);
+                        int rent = bm.CalculateRent(curPlayer, _soSpot);
+                        Debug.Log($"Pay rent to {owner.playerName}, Rent: {rent}");
+                        cm.showCanvasRent(_soSpot);
                     }
                 }
                 else
                 {
-                    Debug.Log($"Player {curPlayer.playerName} owns {so_Spot.spotName}. No rent popup needed.");
-                }
-                break;
-            case eSpotType.tax:
-                Debug.Log($"Pay tax for landing on {so_Spot.spotName}");
-                cm.showCanvasTax(so_Spot);
-                break;
-            case eSpotType.utility:
-                if (owner == null)
-                {
-                   cm.showCanvasPurchase(so_Spot);
-                }
-                else if (owner != curPlayer)
-                {
-                    int utilityRent = bm.CalculateRent(so_Spot);
-                    Debug.Log($"Pay rent to {owner.playerName}, Rent: {utilityRent}");
-                    cm.showCanvasRent(so_Spot);
-                }
-                else
-                {
-                    Debug.Log($"Player {curPlayer.playerName} owns {so_Spot.spotName}. No rent popup needed.");
+                    Debug.Log($"Player {curPlayer.playerName} owns {_soSpot.spotName}. No rent popup needed.");
                 }
                 break;
             case eSpotType.railRoad:
-                if (owner == null)
+                if (owner != curPlayer)
                 {
-                    cm.showCanvasPurchase(so_Spot);
-                }
-                else if (owner != curPlayer)
-                {
-                    int railroadRent = bm.CalculateRent(so_Spot, doubleRent);
-                    Debug.Log($"Pay rent to {owner.playerName}, Rent: {railroadRent}");
-                    cm.showCanvasRent(so_Spot);
+                    if (owner == null)
+                    {
+                        cm.showCanvasPurchase(_soSpot);
+                    }
+                    else
+                    {
+                        int rent = bm.CalculateRent(curPlayer, _soSpot);
+                        Debug.Log($"Pay rent to {owner.playerName}, Rent: {rent}");
+                        cm.showCanvasRent(_soSpot);
+                    }
                 }
                 else
                 {
-                    Debug.Log($"Player {curPlayer.playerName} owns {so_Spot.spotName}. No rent popup needed.");
+                    Debug.Log($"Player {curPlayer.playerName} owns {_soSpot.spotName}. No rent popup needed.");
                 }
                 break;
 
             default:
-                Debug.Log($"Unhandled spot type: {so_Spot.spotType} for {so_Spot.spotName}");
+                Debug.Log($"Unhandled spot type: {_soSpot.spotType} for {_soSpot.spotName}");
                 break;
         }
     }
+
+
     public void GoToJail()
     {
         Debug.Log("Go directly to Jail!");
 
         // Get the current player
-        Player curPlayer = pm.players[pm.curPlayer];
+        iPlayer curPlayer = pm.players[pm.curPlayer];
 
         // Retrieve the soSpot for the Jail position
         soSpot jailSpot = Board.Instance.spots[(int)ePos.AwaitingOrders].so_Spot;
@@ -174,7 +184,7 @@ public class Hud : MonoBehaviour
     }
     public void HandleSafeHarborSpot()
     {
-        Player curPlayer = pm.players[pm.curPlayer];
+        iPlayer curPlayer = pm.players[pm.curPlayer];
         int potAmount = bm.ClaimSafeHarborPot();
         if (potAmount > 0)
         {
@@ -187,7 +197,7 @@ public class Hud : MonoBehaviour
             Debug.Log($"Player {curPlayer.playerName} landed on Free Docking, but the pot is empty.");
         }
     }
-    public void ShowGoPopup(Player player)
+    public void ShowGoPopup(iPlayer player)
     {
         GameObject popupObj = Instantiate(Resources.Load("Canvas/CanvasMessage") as GameObject);
         Message messageComponent = popupObj.GetComponent<Message>();
@@ -208,7 +218,7 @@ public class Hud : MonoBehaviour
     // This method will handle the reward logic
     public void CollectGoReward(string actionName)
     {
-        Player curPlayer = PlayerManager.Instance.players[PlayerManager.Instance.curPlayer];
+        iPlayer curPlayer = PlayerManager.Instance.players[PlayerManager.Instance.curPlayer];
         curPlayer.AdjustCash(200);
         Debug.Log($"{curPlayer.playerName} collected $200 for passing Go!");
     }
@@ -219,7 +229,7 @@ public class Hud : MonoBehaviour
 
     public void OnManageClicked()
     {
-        Player curPlayer = pm.players[pm.curPlayer];
+        iPlayer curPlayer = pm.players[pm.curPlayer];
         cm.showCanvasManage(curPlayer);
     }
 }
