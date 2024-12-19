@@ -14,13 +14,13 @@ public class Wcenter : MonoBehaviour
     public TMP_Text message;
 
     protected soSpot so_Spot;
-    protected Player player;
+    protected iPlayer player;
     protected Hud hud = Hud.Instance;
     protected PlayerManager pm = PlayerManager.Instance;
     protected DiceManager dm = DiceManager.Instance;
     protected CanvasManager cm = CanvasManager.Instance;
     protected BankManager bm = BankManager.Instance;
-    protected GameManager gm = GameManager.Instance;
+    protected GameMgr gm = GameMgr.Instance;
     protected CameraManager camM = CameraManager.Instance;
 
     public virtual void InitWidget(soSpot _soSpot)

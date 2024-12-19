@@ -8,7 +8,7 @@ public class WcenterJail : Wcenter
 
     [SerializeField] private Button confirmButton; // Confirm button
 
-    public void InitWidget(Player player, soSpot jailSpot)
+    public void InitWidget(iPlayer player, soSpot jailSpot)
     {
         this.player = player;
 

@@ -8,10 +8,10 @@ public class WcenterDice : Wcenter
     [SerializeField] private Image dice2Image; // Image for dice 2
     [SerializeField] private Button moveButton; // Button to confirm and move
 
-    private Player curPlayer;
+    private iPlayer curPlayer;
     private bool rollCompleted = false;
 
-    public void InitWidget(Player player)
+    public void InitWidget(iPlayer player)
     {
         Hud.Instance.HideHud();
         curPlayer = player;

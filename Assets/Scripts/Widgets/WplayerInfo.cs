@@ -15,9 +15,9 @@ public class WplayerInfo : MonoBehaviour
     [SerializeField] private Image imageToken;
     public TMP_Text textCash;
     [SerializeField] private GameObject selectedPlayerPanel;
-    [SerializeField] private Player player;
+    [SerializeField] private iPlayer player;
 
-    public void InitWidget(Player _player)
+    public void InitWidget(iPlayer _player)
     {
         player = _player;
         ShowWidget();

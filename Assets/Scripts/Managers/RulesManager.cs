@@ -17,7 +17,7 @@ public class RulesManager : MonoBehaviour
     }
     public void CreateRule()
     {
-        GameManager gm = GameManager.Instance;
+        GameMgr gm = GameMgr.Instance;
         soRuleMenu[] ruleMenu = gm.so_Ref.ruleMenus;
 
         rules = new Rule[maxDropDowns];

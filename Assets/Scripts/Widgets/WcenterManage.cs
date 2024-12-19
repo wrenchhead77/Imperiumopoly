@@ -15,9 +15,9 @@ public class WcenterManage : Wcenter
     [SerializeField] private TMP_Text gojfText;                // Text field for displaying Get Out of Jail Free card status
 
     private PropertyOwnership curProperty;                     // Currently selected property
-    private Player curPlayer;                                  // Reference to the current player
+    private iPlayer curPlayer;                                  // Reference to the current player
 
-    public void InitWidget(Player player, WcenterManage wcenterManage)
+    public void InitWidget(iPlayer player, WcenterManage wcenterManage)
     {
         hud.HideHud();
         curPlayer = player;

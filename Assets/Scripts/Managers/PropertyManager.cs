@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[System.Serializable]
+[System.Serializable] // Ensure the class is marked as Serializable
 public class PropertyOwnership
 {
     public soSpot so_Spot;
@@ -12,7 +10,8 @@ public class PropertyOwnership
     public bool isMortgaged;
     public int houseAmt;
     public int hotelAmt;
-    public PropertyOwnership (soSpot _soSpot, bool _isMortgaged, int _houseAmt, int _hotelAmt)
+
+    public PropertyOwnership(soSpot _soSpot, bool _isMortgaged, int _houseAmt, int _hotelAmt)
     {
         spotName = _soSpot.spotName;
         so_Spot = _soSpot;
@@ -24,11 +23,11 @@ public class PropertyOwnership
 
 public class PropertyManager : MonoBehaviour
 {
-    public Player player;                                  // Reference to the current player
+    public iPlayer player;                                  // Reference to the current player
     private WcenterManage wcenterManage;
     [SerializeField] private GameObject flagPrefab;       // Prefab for the flag
     private Dictionary<soSpot, GameObject> spotFlags = new Dictionary<soSpot, GameObject>();
-    public List<PropertyOwnership> listPropertiesOwned;
+    [SerializeField] public List<PropertyOwnership> listPropertiesOwned; // Expose to the Inspector
 
     private void Awake()
     {
@@ -39,17 +38,19 @@ public class PropertyManager : MonoBehaviour
     {
         wcenterManage = manageInstance;
     }
+
     public void BuyProperty(soSpot _soSpot)
     {
         listPropertiesOwned.Add(new PropertyOwnership(_soSpot, false, 0, 0));
         PlaceFlagOnProperty(_soSpot); // Place the flag when a property is purchased
     }
+
     private void PlaceFlagOnProperty(soSpot spot)
     {
         // Check if a flag already exists for the property
         if (spotFlags.ContainsKey(spot))
         {
-            Debug.LogWarning($"Flag already exists for {spot.spotName}");
+            ErrorLogger.Instance.LogWarning($"Flag already exists for {spot.spotName}");
             return;
         }
 
@@ -57,7 +58,7 @@ public class PropertyManager : MonoBehaviour
         Transform spotTransform = Board.Instance.GetSpotTransform(spot);
         if (spotTransform == null)
         {
-            Debug.LogError($"Could not find the transform for {spot.spotName}");
+            ErrorLogger.Instance.LogError($"Could not find the transform for {spot.spotName}");
             return;
         }
 
@@ -87,6 +88,7 @@ public class PropertyManager : MonoBehaviour
             listPropertiesOwned.Any(owned => owned.so_Spot == property));
     }
 
+    // Returns the number of railroads owned by the player
     public int CountRailroadsOwned()
     {
         int count = listPropertiesOwned.Count(p => p.so_Spot.spotType == eSpotType.railRoad);
@@ -94,6 +96,7 @@ public class PropertyManager : MonoBehaviour
         return count;
     }
 
+    // Returns the number of utilities owned by the player
     public int CountUtilitiesOwned()
     {
         int count = listPropertiesOwned.Count(p => p.so_Spot.spotType == eSpotType.utility);
@@ -101,17 +104,21 @@ public class PropertyManager : MonoBehaviour
         return count;
     }
 
+    // Returns the number of houses on a property
     public int GetHouseCount(soSpot _soSpot)
     {
         // Find the property and return the house count
         var property = listPropertiesOwned.Find(p => p.so_Spot == _soSpot);
         return property != null ? property.houseAmt : 0;
     }
+
+    // Returns the number of hotels on a property
     public int GetHotelCount(soSpot _soSpot)
     {
         var property = listPropertiesOwned.Find(p => p.so_Spot == _soSpot);
         return property?.hotelAmt ?? 0;
     }
+
     public void BuildBunker(soSpot _soSpot)
     {
         var property = listPropertiesOwned.Find(p => p.so_Spot == _soSpot);
@@ -122,7 +129,7 @@ public class PropertyManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"Cannot build a Bunker on {property.spotName}. Max Bunkers reached or has a Fortress.");
+            ErrorLogger.Instance.LogWarning($"Cannot build a Bunker on {property.spotName}. Max Bunkers reached or has a Fortress.");
         }
     }
 
@@ -131,15 +138,16 @@ public class PropertyManager : MonoBehaviour
         var property = listPropertiesOwned.Find(p => p.so_Spot == _soSpot);
         if (property != null && property.houseAmt == 4 && property.hotelAmt == 0)
         {
-            property.houseAmt = 0; 
+            property.houseAmt = 0;
             property.hotelAmt = 1;
             Debug.Log($"Built a Station on {property.spotName}.");
         }
         else
         {
-            Debug.LogWarning($"Cannot build a Station on {property.spotName}. Requires 4 Outposts.");
+            ErrorLogger.Instance.LogWarning($"Cannot build a Station on {property.spotName}. Requires 4 Outposts.");
         }
     }
+
     public void MortgageProperty(soSpot property)
     {
         var ownedProperty = listPropertiesOwned.FirstOrDefault(p => p.so_Spot == property);
@@ -152,7 +160,7 @@ public class PropertyManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"{property.spotName} is already mortgaged.");
+            ErrorLogger.Instance.LogWarning($"{property.spotName} is already mortgaged.");
         }
     }
 
@@ -162,7 +170,7 @@ public class PropertyManager : MonoBehaviour
         if (ownedProperty != null && ownedProperty.isMortgaged)
         {
             int unmortgageCost = Mathf.CeilToInt(property.MortgageCost * 1.1f); // 10% interest
-            Player currentPlayer = PlayerManager.Instance.players[PlayerManager.Instance.curPlayer];
+            iPlayer currentPlayer = PlayerManager.Instance.players[PlayerManager.Instance.curPlayer];
 
             if (currentPlayer.cashOnHand >= unmortgageCost)
             {
@@ -173,12 +181,12 @@ public class PropertyManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError($"Player does not have enough cash to unmortgage {property.spotName}.");
+                ErrorLogger.Instance.LogError($"Player does not have enough cash to unmortgage {property.spotName}.");
             }
         }
         else
         {
-            Debug.LogWarning($"{property.spotName} is not mortgaged.");
+            ErrorLogger.Instance.LogWarning($"{property.spotName} is not mortgaged.");
         }
     }
 
@@ -189,6 +197,7 @@ public class PropertyManager : MonoBehaviour
             .Select(property => property.so_Spot)   // Select the soSpot object
             .ToList();
     }
+
     public bool IsPropertyMortgaged(soSpot _soSpot)
     {
         var property = listPropertiesOwned.FirstOrDefault(p => p.so_Spot == _soSpot);

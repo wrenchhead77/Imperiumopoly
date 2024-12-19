@@ -10,7 +10,7 @@ public class WpropItem : MonoBehaviour
 
     private soSpot so_Spot;
 
-    public void InitPropertyItem(soSpot spot, Player owner)
+    public void InitPropertyItem(soSpot spot, iPlayer owner)
     {
         so_Spot = spot;
 

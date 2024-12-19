@@ -2,24 +2,13 @@ using UnityEngine;
 
 public class BankManager : MonoBehaviour
 {
-    DiceManager dm;
-    CanvasManager cm;
-    PlayerManager pm;
-//    CardManager card;
-    Hud hud;
-
+    public soSpot spot;
     public static BankManager Instance;
-
     public int safeHarborPot = 0; // Track money collected for Safe Harbor
 
     private void Awake()
     {
         Instance = this;
-        dm = DiceManager.Instance;
-        cm = CanvasManager.Instance;
-        pm = PlayerManager.Instance;
-//        card = CardManager.Instance;
-        hud = Hud.Instance;
     }
     public void AddToSafeHarbor(int amount)
     {
@@ -41,78 +30,69 @@ public class BankManager : MonoBehaviour
     {
         return safeHarborPot;
     }
-    public int CalculateRent(soSpot _soSpot, bool doubleRent = false, bool chanceCardUtility = false)
+    // Calculate rent for a property (based on ownership and property type)
+    public int CalculateRent(iPlayer owner, soSpot spot)
     {
-        Player owner = pm.WhoOwnsProperty(_soSpot);
+        int rent = 0;
 
         // Check if the property is mortgaged
-        if (PersistentGameData.Instance.GetMortgageStatus(_soSpot.spotName))
+        bool isMortgaged = PersistentGameData.Instance.GetMortgageStatus(spot.spotName);
+        if (isMortgaged)
         {
-            Debug.Log($"{_soSpot.spotName} is mortgaged. No rent is collected.");
-            return 0; // No rent if the property is mortgaged
+            Debug.LogWarning($"{spot.spotName} is mortgaged. Rent is not charged.");
+            return rent;
         }
 
-        if (owner == null)
-        {
-            Debug.LogError("No owner found for this property.");
-            return 0;
-        }
-
-        switch (_soSpot.spotType)
+        // Calculate rent based on property type
+        switch (spot.spotType)
         {
             case eSpotType.property:
-                // Standard rent based on houses or hotels for properties
-                if (_soSpot.rent == null || _soSpot.rent.Length == 0)
+                // Rent with no houses or hotels
+                rent = spot.rent[0];
+
+                // Rent with houses or hotels
+                int houseCount = owner.propertyManager.GetHouseCount(spot);
+                if (houseCount > 0 && houseCount <= 4)
                 {
-                    Debug.LogError($"Rent array is not initialized for {_soSpot.spotName}");
-                    return 0;
+                    rent = spot.rent[houseCount];  // Rent with houses
                 }
-                int houseCount = owner.propertyManager.GetHouseCount(_soSpot);
-                int propertyRent = _soSpot.rent[houseCount];
-                Debug.Log($"Calculating property rent: {propertyRent} for house count: {houseCount}");
-                return propertyRent;
+                else if (owner.propertyManager.GetHotelCount(spot) > 0)
+                {
+                    rent = spot.rent[5];  // Rent with a hotel (6th entry)
+                }
+                break;
 
             case eSpotType.railRoad:
-                // Railroad rent depends on the number of railroads owned
-                if (_soSpot.rentRR == null || _soSpot.rentRR.Length == 0)
-                {
-                    Debug.LogError($"Railroad rent array is not initialized for {_soSpot.spotName}");
-                    return 0;
-                }
+                // Rent based on the number of railroads owned
                 int railroadsOwned = owner.propertyManager.CountRailroadsOwned();
-                int railroadRent = _soSpot.rentRR[railroadsOwned - 1];
-                Debug.Log($"Calculating railroad rent: {railroadRent} for railroads owned: {railroadsOwned}");
-                return doubleRent ? railroadRent * 2 : railroadRent;
+                if (railroadsOwned >= 1 && railroadsOwned <= 4)
+                {
+                    rent = spot.rentRR[railroadsOwned - 1];  // Rent for owning 1-4 railroads
+                }
+                break;
 
             case eSpotType.utility:
-                // Utility rent logic
-                if (_soSpot.rentUte == null || _soSpot.rentUte.Length == 0)
+                // Rent based on the number of utilities owned (x4 or x10 multipliers)
+                int utilitiesOwned = owner.propertyManager.CountUtilitiesOwned();
+                if (utilitiesOwned == 1)
                 {
-                    Debug.LogError($"Utility rent array is not initialized for {_soSpot.spotName}");
-                    return 0;
+                    rent = spot.rentUte[0] * PersistentGameData.Instance.lastDiceRoll; // Rent * x4 multiplier
                 }
-
-                int diceRoll = PersistentGameData.Instance.lastDiceRoll;
-                if (chanceCardUtility)
+                else if (utilitiesOwned == 2)
                 {
-                    int chanceRent = diceRoll * 10;
-                    Debug.Log($"Chance card utility rent: {chanceRent} for dice roll: {diceRoll}");
-                    return chanceRent;
+                    rent = spot.rentUte[1] * PersistentGameData.Instance.lastDiceRoll; // Rent * x10 multiplier
                 }
-                else
-                {
-                    int multiplier = owner.propertyManager.CountUtilitiesOwned() == 2 ? 10 : 4;
-                    int utilityRent = diceRoll * multiplier;
-                    Debug.Log($"Calculating utility rent: {utilityRent} for dice roll: {diceRoll} and multiplier: {multiplier}");
-                    return utilityRent;
-                }
+                break;
 
             default:
-                Debug.LogError($"Invalid spot type for rent calculation: {_soSpot.spotType}");
-                return 0;
+                Debug.LogWarning($"Unknown spot type: {spot.spotType}");
+                break;
         }
+
+        Debug.Log($"Rent for {spot.spotName} is ${rent}");
+        return rent;
     }
-    public void TransferFunds(Player fromPlayer, Player toPlayer, int amount)
+    public void TransferFunds(iPlayer fromPlayer, iPlayer toPlayer, int amount)
     {
         if (fromPlayer.cashOnHand >= amount)
         {
@@ -125,8 +105,7 @@ public class BankManager : MonoBehaviour
             Debug.LogError($"{fromPlayer.playerName} does not have enough cash to transfer ${amount}");
         }
     }
-
-    public void ChargePlayer(Player player, int amount)
+    public void ChargePlayer(iPlayer player, int amount)
     {
         if (player.cashOnHand >= amount)
         {
@@ -140,12 +119,12 @@ public class BankManager : MonoBehaviour
         }
     }
 
-    public void RewardPlayer(Player player, int amount)
+    public void RewardPlayer(iPlayer player, int amount)
     {
         player.AdjustCash(amount);
         Debug.Log($"Awarded ${amount} to {player.playerName}");
     }
-    public int CalculateRepairCosts(Player player, int costPerHouse, int costPerHotel)
+    public int CalculateRepairCosts(iPlayer player, int costPerHouse, int costPerHotel)
     {
         int totalHouses = 0;
         int totalHotels = 0;

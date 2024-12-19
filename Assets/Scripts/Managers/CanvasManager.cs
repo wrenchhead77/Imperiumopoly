@@ -5,7 +5,7 @@ using UnityEngine;
 public class CanvasManager : MonoBehaviour
 {
     public Hud hud;
-    private Player player;
+    private iPlayer player;
 
     public static CanvasManager Instance;
 
@@ -26,7 +26,12 @@ public class CanvasManager : MonoBehaviour
     public void showCanvasSetup()
     {
         Setup setup = Instantiate(Resources.Load("Canvas/CanvasSetup") as GameObject).GetComponent<Setup>();
-        setup.InitCanvas(); 
+        setup.InitCanvas();
+    }
+
+    public void showCanvasLobby()
+    {
+        LobbyManager lobby= Instantiate(Resources.Load("Canvas/CanvasLobby") as GameObject).GetComponent<LobbyManager>();
     }
 
     public void showCanvasOptions()
@@ -59,7 +64,7 @@ public class CanvasManager : MonoBehaviour
         GameObject messageObj = Instantiate(Resources.Load("Canvas/CanvasMessage") as GameObject);
         if (messageObj == null)
         {
-            Debug.LogError("Failed to load CanvasMessage prefab. Check that it exists in Resources/Canvas.");
+            ErrorLogger.Instance.LogError("Failed to load CanvasMessage prefab. Check that it exists in Resources/Canvas.");
             return;
         }
 
@@ -71,7 +76,7 @@ public class CanvasManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Message component missing from CanvasMessage prefab.");
+            ErrorLogger.Instance.LogError("Message component missing from CanvasMessage prefab.");
         }
     }
     public void showCanvasHUD()
@@ -89,7 +94,7 @@ public class CanvasManager : MonoBehaviour
         rent.InitWidget(_soSpot);
     }
 
-    public void ShowCanvasBattle(Player attacker, Player defender, int dockingFee)
+    public void ShowCanvasBattle(iPlayer attacker, iPlayer defender, int dockingFee)
     {
         CanvasBattle battle = Instantiate(Resources.Load("Canvas/CanvasBattle") as GameObject).GetComponent<CanvasBattle>();
         battle.InitBattle(attacker, defender, dockingFee);
@@ -100,13 +105,13 @@ public class CanvasManager : MonoBehaviour
         tax.InitWidget(_soSpot);
     }
 
-    public void showCanvasJail(Player _player)
+    public void showCanvasJail(iPlayer _player)
     {
         // Instantiate the jail canvas
         Jail jail = Instantiate(Resources.Load("Canvas/CanvasJail") as GameObject).GetComponent<Jail>();
         jail.InitCanvas(_player);
     }
-    public void showCanvasManage(Player _player)
+    public void showCanvasManage(iPlayer _player)
     {
         // Load and instantiate the CanvasManage prefab
         GameObject canvasManage = Resources.Load<GameObject>("Canvas/CanvasManage");

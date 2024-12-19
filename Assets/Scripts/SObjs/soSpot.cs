@@ -13,9 +13,9 @@ public class soSpot : ScriptableObject
     public Sprite spotArtFront;
     public Sprite spotArtBack;
     public int price;
-    public int[] rent;
-    public int[] rentRR;
-    public int[] rentUte;
+    public int[] rent = new int[6];
+    public int[] rentRR = new int[4];
+    public int[] rentUte = new int[2];
     public int tax;
     public int BunkerCost;
     public int FortressCost;

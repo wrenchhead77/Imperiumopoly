@@ -13,16 +13,16 @@ public class DiceManager : MonoBehaviour
 
         if (PersistentGameData.Instance == null)
         {
-            Debug.LogError("PersistentGameData instance is missing! Ensure it's added to the GameManager GameObject.");
+            ErrorLogger.Instance.LogError("PersistentGameData instance is missing! Ensure it's added to the GameManager GameObject.");
         }
 
         if (diceData == null)
         {
-            Debug.LogError("Dice data is missing. Ensure `soDice` is assigned in the inspector.");
+            ErrorLogger.Instance.LogError("Dice data is missing. Ensure `soDice` is assigned in the inspector.");
         }
         else if (diceData.faces == null || diceData.faces.Length < 6)
         {
-            Debug.LogError($"Dice data is incomplete. Expected 6 entries, but found {(diceData.faces == null ? 0 : diceData.faces.Length)}. Ensure `soDice.faces` is configured properly.");
+            ErrorLogger.Instance.LogError($"Dice data is incomplete. Expected 6 entries, but found {(diceData.faces == null ? 0 : diceData.faces.Length)}. Ensure `soDice.faces` is configured properly.");
         }
         else
         {
@@ -70,7 +70,7 @@ public class DiceManager : MonoBehaviour
             }
         }
 
-        Debug.LogError($"Failed to fetch sprite for face: {face}");
+        ErrorLogger.Instance.LogError($"Failed to fetch sprite for face: {face}");
         return null;
     }
 }

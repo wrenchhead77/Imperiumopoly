@@ -10,7 +10,7 @@ public class CardManager : MonoBehaviour
     
     public static CardManager Instance;
     private bool actionExecuted = false;
-    public Player currentplayer;
+    public iPlayer currentplayer;
     private void Awake()
     {
         Instance = this;
@@ -21,7 +21,7 @@ public class CardManager : MonoBehaviour
     {
         if (PersistentGameData.Instance == null)
         {
-            Debug.LogError("PersistentGameData.Instance is null. Ensure PersistentGameData is set up correctly.");
+            ErrorLogger.Instance.LogError("PersistentGameData.Instance is null. Ensure PersistentGameData is set up correctly.");
             return;
         }
 
@@ -30,7 +30,7 @@ public class CardManager : MonoBehaviour
 
         if (chanceDeckSource == null || communityChestDeckSource == null)
         {
-            Debug.LogError("ChanceDeckSource or CommunityChestDeckSource is not assigned in the CardManager.");
+            ErrorLogger.Instance.LogError("ChanceDeckSource or CommunityChestDeckSource is not assigned in the CardManager.");
             return;
         }
 
@@ -125,18 +125,18 @@ public class CardManager : MonoBehaviour
             ReturnCardToBottom(card, cardPopup);
         });
     }
-    public void ExecuteCardAction(soCard cardData, Player _player)
+    public void ExecuteCardAction(soCard cardData, iPlayer _player)
     {
         if (actionExecuted) return; // Prevent duplicate execution
         actionExecuted = true;
         Debug.Log($"Executing card action: {cardData.actionName} for player {_player.playerName}");
         PlayerManager pm = PlayerManager.Instance;
-        Player currentPlayer = pm.players[pm.curPlayer];
+        iPlayer currentPlayer = pm.players[pm.curPlayer];
 
         switch (cardData.actionName)
         {
             case "PayAll50":
-                foreach (Player p in pm.players)
+                foreach (iPlayer p in pm.players)
                 {
                     if (p != currentPlayer && p.so_PlayerType.playerType != ePlayerType.none)
                     {
@@ -260,7 +260,7 @@ public class CardManager : MonoBehaviour
                 break;
 
             case "Rec50FromAll":
-                foreach (Player p in pm.players)
+                foreach (iPlayer p in pm.players)
                 {
                     if (p != currentPlayer && p.so_PlayerType.playerType != ePlayerType.none)
                     {
@@ -303,7 +303,7 @@ public class CardManager : MonoBehaviour
             Debug.LogWarning($"No Get Out of Jail Free cards available in the {deckType} deck.");
         }
     }
-    public void UseGetOutOfJailFreeCard(Player player, eDeckType deckType)
+    public void UseGetOutOfJailFreeCard(iPlayer player, eDeckType deckType)
     {
         if (player.GOJFCard > 0)
         {

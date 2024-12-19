@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 ///  Widget (inherits from Wcenter):
@@ -10,9 +11,11 @@ using UnityEngine;
 
 public class WcenterPurchase : Wcenter
 {
+    public Button confirmButton;
     public Transform relatedPropertiesContainer; // Parent object for related properties
     public GameObject propertyItemPrefab; // Prefab to represent a single related property
     private Message _message;
+    private iPlayer curPlayer;
 
     public override void InitWidget(soSpot _soSpot)
     {
@@ -25,6 +28,16 @@ public class WcenterPurchase : Wcenter
         List<soSpot> relatedProperties = Board.Instance.GetSpotsOfSameColorOrType(_soSpot);
         // Populate the UI with related properties that are owned by others
         PopulateRelatedPropertiesUI(relatedProperties);
+/*        cm.showCanvasPurchase(_soSpot); // Adjust based on how you retrieve the widget
+        WcenterPurchase purchaseWidget = cm.showCanvasPurchase(_soSpot);
+        if (curPlayer.cashOnHand < _soSpot.price)
+        {
+            purchaseWidget.SetConfirmButtonInteractable(false); // Disable if not enough cash
+        }
+        else
+        {
+            purchaseWidget.SetConfirmButtonInteractable(true); // Enable if they can afford
+        } */
     }
     private List<soSpot> GetRelatedProperties()
     {
@@ -60,7 +73,7 @@ public class WcenterPurchase : Wcenter
         // Populate related properties only if they are owned by another player
         foreach (soSpot relatedSpot in relatedProperties)
         {
-            Player owner = PlayerManager.Instance.WhoOwnsProperty(relatedSpot);
+            iPlayer owner = PlayerManager.Instance.WhoOwnsProperty(relatedSpot);
 
             if (owner != null && owner != pm.players[pm.curPlayer]) // Exclude unowned and current player's properties
             {
@@ -104,5 +117,16 @@ public class WcenterPurchase : Wcenter
         hud.ShowHud();
         // Close the purchase prompt
         Destroy();
+    }
+    public void SetConfirmButtonInteractable(bool isInteractable)
+    {
+        if (confirmButton != null)
+        {
+            confirmButton.interactable = isInteractable;
+        }
+        else
+        {
+            Debug.LogWarning("Confirm button not assigned in CanvasManager.");
+        }
     }
 }

@@ -17,9 +17,9 @@ public class Wsetup : MonoBehaviour
     [SerializeField] private TMP_Text textToken;
     [SerializeField] private Image imageType;
     [SerializeField] private TMP_Text textType;
-    [SerializeField] private Player player;
+    [SerializeField] private iPlayer player;
 
-    public void InitWidget(Player _player)
+    public void InitWidget(iPlayer _player)
     {
         player = _player;
         ShowButtons();
@@ -45,7 +45,7 @@ public class Wsetup : MonoBehaviour
         soPlayerToken token = player.so_PlayerToken;
         soPlayerType type = player.so_PlayerType;
 
-        if (type == GameManager.Instance.so_Ref.playerTypes[(int)ePlayerType.none])
+        if (type == GameMgr.Instance.so_Ref.playerTypes[(int)ePlayerType.none])
         {
             button_AddPlayer.SetActive(true); // Show the "Add Player" button
             grp_PlayerSetup.SetActive(false); // Hide the Token/Type/Color buttons

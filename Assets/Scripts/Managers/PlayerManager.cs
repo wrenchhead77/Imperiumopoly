@@ -7,7 +7,7 @@ public class PlayerManager : MonoBehaviour
     public const int maxPlayers = 4;
     public int numPlayers;
 
-    public Player[] players;
+    public iPlayer[] players;
     public int curPlayer;
 
     public Vector3[] offset = { new Vector3(0f, 0.011f, 0f), new Vector3(0, 0.022f, 0f),
@@ -20,16 +20,16 @@ public class PlayerManager : MonoBehaviour
 
     public void CreatePlayers()
     {
-        GameManager gm = GameManager.Instance;
+        GameMgr gm = GameMgr.Instance;
         soPlayerType[] playerTypes = gm.so_Ref.playerTypes;
         soPlayerToken[] playerTokens = gm.so_Ref.playerTokens;
         Color[] playerColors = gm.so_Ref.playerColors;
 
-        players = new Player[maxPlayers];
+        players = new iPlayer[maxPlayers];
 
         for (int i = 0; i < maxPlayers; i++)
         {
-            players[i] = new GameObject().AddComponent<Player>(); // Create a new Game Object and attach Player script to it
+            players[i] = new GameObject().AddComponent<iPlayer>(); // Create a new Game Object and attach Player script to it
             players[i].transform.SetParent(this.transform);
             players[i].playerIdx = i;
             players[i].name = "Player" + (i + 1).ToString();
@@ -45,14 +45,14 @@ public class PlayerManager : MonoBehaviour
         players[1].so_PlayerType = playerTypes[(int)ePlayerType.AI];
     }
 
-    internal void SendPlayerToJail(Player currentPlayer)
+    internal void SendPlayerToJail(iPlayer currentPlayer)
     {
         throw new NotImplementedException();
     }
 
-    public Player WhoOwnsProperty(soSpot _soSpot)
+    public iPlayer WhoOwnsProperty(soSpot _soSpot)
     {
-        foreach (Player p in players)
+        foreach (iPlayer p in players)
         {
             if (p.so_PlayerType.playerType != ePlayerType.none)
             {
@@ -124,7 +124,7 @@ public class PlayerManager : MonoBehaviour
 
         } while (players[curPlayer].so_PlayerType.playerType == ePlayerType.none);
 
-        Player nextPlayer = players[curPlayer];
+        iPlayer nextPlayer = players[curPlayer];
         Debug.Log($"Advancing to player {nextPlayer.playerName}");
 
         // Highlight the current player's info
