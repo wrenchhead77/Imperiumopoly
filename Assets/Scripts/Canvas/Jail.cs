@@ -7,11 +7,11 @@ public class Jail : MonoBehaviour
     public GameObject buttonEndTurn;
     public GameObject buttonJailCard;
     public GameObject buttonPayFine; // Ensure this is assigned in the editor
-    private Player player;
+    private iPlayer player;
 
     public TMP_Text jailMessage;
 
-    public void InitCanvas(Player _player)
+    public void InitCanvas(iPlayer _player)
     {
         player = _player;
 
@@ -87,7 +87,7 @@ public class Jail : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No Get Out of Jail Free cards available.");
+            ErrorLogger.Instance.LogWarning("No Get Out of Jail Free cards available.");
         }
     }
 
@@ -100,6 +100,8 @@ public class Jail : MonoBehaviour
         {
             Debug.Log($"{player.playerName} is moving {diceRoll} spaces after exiting Jail.");
             player.MovePlayer(diceRoll); // Move the player
+            PersistentGameData.Instance.doublesRolled = false;
+            PersistentGameData.Instance.doublesCount = 0;
         }
         Destroy(this.gameObject);
         Hud.Instance.ShowHud();

@@ -14,8 +14,12 @@ public class Board : MonoBehaviour
         {
             if (spot.so_Spot == null)
             {
-                Debug.LogError($"soSpot is not assigned for spot at position {spot.transform.position}");
+                ErrorLogger.Instance.LogError($"soSpot is not assigned for spot at position {spot.transform.position}");
             }
+        }
+        if (Board.Instance.spots == null || Board.Instance.spots.Length == 0)
+        {
+            ErrorLogger.Instance.LogError("Board spots array is empty or null!");
         }
     }
 

@@ -58,7 +58,7 @@ public class Environments : MonoBehaviour
         }
 
         // Check PersistentGameData for the previously selected environment
-        var selectedEnvironment = GameManager.Instance.GetSelectedEnvironment();
+        var selectedEnvironment = GameMgr.Instance.GetSelectedEnvironment();
         if (selectedEnvironment != null)
         {
             // Find the index of the selected environment
@@ -110,7 +110,7 @@ public class Environments : MonoBehaviour
         wLargeImage.sprite = so_EnvironData.environs[index]._largeImage;
         selectedEnvironmentIndex = index;
 
-        Debug.Log($"Selected Environment: {so_EnvironData.environs[index].environName}");
+        ErrorLogger.Instance.LogInfo($"Selected Environment: {so_EnvironData.environs[index].environName}");
     }
 
     public void OnAcceptClick()
@@ -118,12 +118,12 @@ public class Environments : MonoBehaviour
         if (selectedEnvironmentIndex >= 0 && selectedEnvironmentIndex < so_EnvironData.environs.Length)
         {
             var selectedEnvironment = so_EnvironData.environs[selectedEnvironmentIndex];
-            GameManager.Instance.SetSelectedEnvironment(selectedEnvironment);
-            Debug.Log($"Accepted Environment: {selectedEnvironment.environName}");
+            GameMgr.Instance.SetSelectedEnvironment(selectedEnvironment);
+            ErrorLogger.Instance.LogInfo($"Accepted Environment: {selectedEnvironment.environName}");
         }
         else
         {
-            Debug.LogError("Selected environment index is out of bounds or invalid.");
+            ErrorLogger.Instance.LogError("Selected environment index is out of bounds or invalid.");
         }
 
         Destroy(this.gameObject); // Close the canvas
