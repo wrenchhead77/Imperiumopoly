@@ -5,7 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - diceData: {fileID: 11400000, guid: 4cd764769f60a4041b72bfc5d9ef3398, type: 2}
-  executionOrder: -20
+  executionOrder: -13
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

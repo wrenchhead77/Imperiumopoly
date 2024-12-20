@@ -11,6 +11,11 @@ public class CanvasManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
         Instance = this;
     }
 
@@ -25,7 +30,24 @@ public class CanvasManager : MonoBehaviour
     }
     public void showCanvasSetup()
     {
-        Setup setup = Instantiate(Resources.Load("Canvas/CanvasSetup") as GameObject).GetComponent<Setup>();
+        Debug.Log("Attempting to load CanvasSetup prefab...");
+        GameObject canvasSetup = Resources.Load<GameObject>("Canvas/CanvasSetup");
+
+        if (canvasSetup == null)
+        {
+            Debug.LogError("CanvasSetup prefab not found in Resources/Canvas!");
+            return;
+        }
+
+        Setup setup = Instantiate(canvasSetup).GetComponent<Setup>();
+
+        if (setup == null)
+        {
+            Debug.LogError("Setup component is missing from CanvasSetup prefab!");
+            return;
+        }
+
+        Debug.Log("CanvasSetup loaded successfully.");
         setup.InitCanvas();
     }
 

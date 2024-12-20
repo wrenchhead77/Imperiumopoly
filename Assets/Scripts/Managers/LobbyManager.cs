@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
@@ -214,8 +215,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            Debug.Log("Starting the game...");
-            PhotonNetwork.LoadLevel("InGame"); // Replace with your game scene name
+            StartCoroutine(StartGameWithDelay());
         }
         else
         {
@@ -223,6 +223,22 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
+    private IEnumerator StartGameWithDelay()
+    {
+        yield return new WaitForSeconds(0.5f); // Adjust the delay if needed
+        photonView.RPC("LoadCanvasSetup", RpcTarget.All);
+    }
+    [PunRPC]
+    public void LoadCanvasSetup()
+    {
+        if (CanvasManager.Instance == null)
+        {
+            Debug.LogError("CanvasManager.Instance is null on LoadCanvasSetup RPC!");
+            return;
+        }
+
+        CanvasManager.Instance.showCanvasSetup();
+    }
     public void LeaveLobby()
     {
         PhotonNetwork.LeaveRoom();
