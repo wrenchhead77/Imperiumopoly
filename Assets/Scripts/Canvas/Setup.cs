@@ -1,54 +1,64 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System;
-using Unity.VisualScripting;
+using Photon.Pun;
 
-public class Setup : MonoBehaviour
+public class Setup : MonoBehaviourPunCallbacks
 {
-    public RectTransform grp_PlayerButtons;
-    public GameObject playerPrefab;
-    public Button buttonPlay;
-    public TMP_Dropdown difficultyDropdown;
-    public TMP_Dropdown sleightDropdown;
-    private soRef _soRef;
+    public RectTransform grp_PlayerButtons; // Parent for player widgets
+    public GameObject playerPrefab;         // Prefab for player widgets
+    public Button buttonPlay;               // Play button
 
-    private void Start()
+    private void Awake()
     {
-        // Get the Dropdown components directly from the Canvas
-        difficultyDropdown = GetComponentInChildren<TMP_Dropdown>();
-        sleightDropdown = GetComponentInChildren<TMP_Dropdown>();
-
-        PersistentGameData data = PersistentGameData.Instance;
-        difficultyDropdown.value = data.difficulty;
-        sleightDropdown.value = data.sleight;
-
-        difficultyDropdown.onValueChanged.AddListener(OnDifficultyChanged);
-        sleightDropdown.onValueChanged.AddListener(OnSleightChanged);
-    }
-
-    private void OnDifficultyChanged(int value)
-    {
-        PersistentGameData.Instance.difficulty = value;
-    }
-
-    private void OnSleightChanged(int value)
-    {
-        PersistentGameData.Instance.sleight = value;
+        Debug.Log("Setup Initialized.");
+        InitCanvas(); // Initialize player widgets
+        if (PhotonNetwork.PhotonServerSettings != null)
+        {
+            PhotonNetwork.AutomaticallySyncScene = true;
+            Debug.Log("<color=green>Photon AutomaticallySyncScene enabled.</color>");
+        }
     }
 
     public void InitCanvas()
     {
-        Debug.Log("Instantiate Widgets");
+        Debug.Log("Initializing Player Widgets...");
 
-        for (int i = 0; i < PlayerManager.maxPlayers; i++)
+        // Ensure PlayerManager is ready
+        if (PlayerManager.Instance == null || PlayerManager.Instance.players.Count == 0)
         {
-            GameObject obj = Instantiate(Resources.Load("Widgets/Wsetup") as GameObject, grp_PlayerButtons);
-            Wsetup scr = obj.GetComponent<Wsetup>();
-            scr.InitWidget(PlayerManager.Instance.players[i]);
+            Debug.LogError("PlayerManager is not initialized or no players found.");
+            return;
         }
 
+        // Instantiate UI widgets for each player
+        foreach (var playerEntry in PlayerManager.Instance.players)
+        {
+            int playerId = playerEntry.Key;
+            iPlayer player = playerEntry.Value;
+
+            if (player == null)
+            {
+                Debug.LogWarning($"Player with ID {playerId} is null. Skipping...");
+                continue;
+            }
+
+            GameObject obj = Instantiate(playerPrefab, grp_PlayerButtons);
+            Wsetup scr = obj.GetComponent<Wsetup>();
+
+            if (scr != null)
+            {
+                scr.InitWidget(player); // Pass player data to the widget
+                Debug.Log($"Initialized player widget for: {player.playerName} (ID: {playerId})");
+            }
+            else
+            {
+                Debug.LogError("Wsetup script is missing from the player prefab.");
+            }
+        }
+
+        CheckForPlayButton();
     }
+
     private void SetButtonPlay(bool _active)
     {
         buttonPlay.interactable = _active;
@@ -56,22 +66,9 @@ public class Setup : MonoBehaviour
 
     public void CheckForPlayButton()
     {
-        int humanPlayers = 0;
-        int numActivePlayers = 0;
-
-        foreach (var p in PlayerManager.Instance.players)
-        {
-            if (p.so_PlayerType.playerType == ePlayerType.human)
-            {
-                humanPlayers++;
-            }
-            if (p.so_PlayerType.playerType != ePlayerType.none)
-            {
-                numActivePlayers++;
-            }
-        }
-
-        SetButtonPlay(humanPlayers > 0 && numActivePlayers > 1);
+        int activePlayers = PlayerManager.Instance.players.Count;
+        SetButtonPlay(activePlayers > 1); // Enable Play button if there are at least 2 players
+        Debug.Log($"Play button state updated. Active players: {activePlayers}");
     }
 
     public void OnPlayClicked()
@@ -83,12 +80,12 @@ public class Setup : MonoBehaviour
     public void OnCancelClicked()
     {
         Debug.Log("<color=red>Cancel Clicked</color>");
+        PhotonNetwork.LeaveRoom();
         Destroy(this.gameObject);
     }
-
     public void OnEnvironClicked()
     {
-        Debug.Log("<color=red>Environ Clicked</color>");
+        Debug.Log("<color=red>Environment Clicked</color>");
         CanvasManager.Instance.showCanvasEnviron();
     }
 
@@ -98,5 +95,3 @@ public class Setup : MonoBehaviour
         CanvasManager.Instance.showCanvasHouseRules();
     }
 }
-
-
