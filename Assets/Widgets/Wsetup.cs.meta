@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: f79fff89de0945f4ba0fc86a20d9af0e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - setupData: {fileID: 11400000, guid: cd8feab1b53b1264287f4d6153aa70da, type: 2}
+  - button_AddPlayer: {instanceID: 0}
+  - grp_PlayerSetup: {instanceID: 0}
+  - grp_SetupButtons: {instanceID: 0}
+  - imageToken: {instanceID: 0}
+  - textToken: {instanceID: 0}
+  - imageType: {instanceID: 0}
+  - textType: {instanceID: 0}
+  - player: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
